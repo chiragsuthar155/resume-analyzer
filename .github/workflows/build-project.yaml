@@ -41,8 +41,8 @@ jobs:
       - name: Build and Push Backend
         uses: docker/build-push-action@v6
         with:
-          context: ./backend
-          file: ./backend/Dockerfile
+          context: ./Backend
+          file: ./Backend/Dockerfile
           push: true
           tags: |
              ${{ env.DOCKER_USERNAME }}/backend:latest
@@ -51,8 +51,8 @@ jobs:
       - name: Build and Push Frontend
         uses: docker/build-push-action@v6
         with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
+          context: ./Frontend
+          file: ./Frontend/Dockerfile
           push: true
           tags: |
              ${{ env.DOCKER_USERNAME }}/frontend:latest
