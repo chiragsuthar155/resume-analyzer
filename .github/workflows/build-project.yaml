@@ -41,8 +41,8 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            "$DOCKER_USERNAME"/backend:latest
-            "$DOCKER_USERNAME"/backend:${{ github.sha }}
+             $DOCKER_USERNAME/backend:latest
+             $DOCKER_USERNAME/backend:${{ github.sha }}
 
       - name: Build and Push Frontend
         uses: docker/build-push-action@v6
@@ -51,5 +51,5 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: |
-            "$DOCKER_USERNAME"/frontend:latest
-            "$DOCKER_USERNAME"/frontend:${{ github.sha }}
+             $DOCKER_USERNAME/frontend:latest
+             $DOCKER_USERNAME/frontend:${{ github.sha }}
