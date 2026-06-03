@@ -1,0 +1,39 @@
+name: Application Code Build 
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Infisical via OIDC and fetch secrets
+        uses: Infisical/secrets-action@v1.0.9
+        with:
+          method: oidc
+          identity-id: "6f09c2d7-daee-4a01-8d1a-0aa070f7c85a"
+          domain: "https://app.infisical.com"
+          project-slug: "infisical-github-r2pf"
+          env-slug: "dev"
+
+      - name: Log in to Docker Hub
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login \
+            -u "$DOCKER_USERNAME" \
+            --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t $DOCKER_USERNAME/github-actions-infisical:${{ github.run_number }} .
+
+      - name: Push Docker image
+        run: |
+          docker push $DOCKER_USERNAME/github-actions-infisical:${{ github.run_number }}
