@@ -1,6 +1,12 @@
 FROM node:lts-alpine
+
 WORKDIR /app
-COPY package*.json .
-COPY . .
+
+COPY package*.json ./
 RUN npm install
-CMD [ "npm","run","dev" ]
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm","run","dev"]
